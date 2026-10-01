@@ -1,0 +1,13 @@
+{
+  "title": "Fountain, in five minutes",
+  "draft": true,
+  "chapters": [
+    { "id": "welcome",   "file": "content/chapters/00-welcome.md" },
+    { "id": "computer",  "file": "content/chapters/01-a-real-computer.md",    "recording": "recordings/01-a-real-computer.json" },
+    { "id": "parking",   "file": "content/chapters/02-the-parking-lot.md",    "recording": "recordings/02-the-parking-lot.json" },
+    { "id": "secrets",   "file": "content/chapters/03-sealed-secrets.md",     "recording": "recordings/03-sealed-secrets.json" },
+    { "id": "overnight", "file": "content/chapters/04-overnight-engineer.md", "recording": "recordings/04-overnight-engineer.json" },
+    { "id": "build",     "file": "content/chapters/05-build-your-own.md",     "recording": "recordings/05-build-your-own.json" },
+    { "id": "close",     "file": "content/chapters/06-why-it-matters.md" }
+  ]
+}

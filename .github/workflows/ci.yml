@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks-and-unit-tests:
+    name: Content checks and unit tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Show toolchain versions
+        run: |
+          node --version
+          python3 --version
+      - name: Check for banned patterns
+        run: ./scripts/check-banned-patterns.sh
+      - name: Check the test count ratchet
+        run: node scripts/check-test-count.js
+      - name: Validate chapters and recordings
+        run: node scripts/validate-content.js
+      - name: Run the unit tests and check the coverage ratchet
+        run: node scripts/check-coverage.js
+
+  browser-tests:
+    name: Browser tests (desktop and phone)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Chromium for Playwright
+        run: npx playwright install --with-deps chromium
+      - name: Run the browser tests
+        run: npx playwright test
+      - name: Keep the test report when something fails
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 14

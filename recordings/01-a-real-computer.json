@@ -1,0 +1,17 @@
+{
+  "placeholder": true,
+  "title": "One message, one computer",
+  "events": [
+    { "at": 0,    "kind": "prompt",  "data": "The signup form accepts emails without an @. Fix it and add a test." },
+    { "at": 700,  "kind": "status",  "state": "waking",  "data": "Machine waking: repository already cloned, packages installed" },
+    { "at": 1900, "kind": "status",  "state": "working", "data": "Agent started" },
+    { "at": 2600, "kind": "command", "data": "grep -rn \"email\" src/forms" },
+    { "at": 3300, "kind": "output",  "data": "src/forms/signup.ts:14: if (email.length > 0) {" },
+    { "at": 4300, "kind": "file",    "data": "Edited src/forms/signup.ts" },
+    { "at": 5100, "kind": "file",    "data": "Added tests/signup.test.ts" },
+    { "at": 5900, "kind": "command", "data": "npm test" },
+    { "at": 7000, "kind": "output",  "data": "12 passed, 0 failed" },
+    { "at": 7800, "kind": "message", "data": "Fixed: the form now requires a valid email address. Added a test covering the bug." },
+    { "at": 8600, "kind": "status",  "state": "parked",  "data": "Turn finished; machine parked" }
+  ]
+}
