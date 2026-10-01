@@ -2,4 +2,4 @@
 # Raised automatically by .github/workflows/coverage-ratchet.yml on every push to main; don't bump
 # it from a feature branch (see the header of scripts/check-coverage.js). Lower it only
 # deliberately, with a reason in the commit.
-lines=94.71
+lines=96.68
