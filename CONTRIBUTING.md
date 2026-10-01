@@ -19,6 +19,10 @@ npx playwright test         # browser tests, at desktop and phone size
 npm run check               # every check CI runs except the browser tests
 ```
 
+In Claude Code on the web, a session start hook (`.claude/hooks/session-start.sh`) runs
+`npm install` and installs the pinned Fountain CLI, so these commands work as soon as a session
+opens.
+
 Pull requests and pushes to `main` run the same checks in CI: banned patterns, the test count
 ratchet, content validation, the unit tests with the coverage ratchet, and the browser tests in
 Chromium at desktop and phone size.
