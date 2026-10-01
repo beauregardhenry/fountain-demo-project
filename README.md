@@ -58,6 +58,9 @@ All the copy lives in `content/chapters/`, one Markdown file per chapter. See
 - Tour shell and first-draft copy: done.
 - Recordings: **placeholders**. Each is labeled on screen as illustrative, not
   real Fountain output, until it's replaced with a recorded run.
+  `scripts/record-conversation.js` turns a real Fountain conversation into a
+  recording; see [docs/RECORDING.md](docs/RECORDING.md) for how, and for what
+  to record for each chapter.
 - The tour shows a **Draft** badge and a yellow "To verify before presenting"
   box on each chapter until `"draft"` is set to `false` in
   `content/tour.json`.
