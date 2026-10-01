@@ -40,7 +40,13 @@ python3 -m http.server 8000
 ```
 
 Then open <http://localhost:8000>. The arrow keys move between chapters, and
-Space plays the demo.
+Space plays the demo. Add `?speed=4` to the address to play demos four times
+faster while rehearsing.
+
+## Tests and CI
+
+Every pull request runs content checks, unit tests and browser tests, with coverage and test-count
+floors that only move up. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Edit the words
 

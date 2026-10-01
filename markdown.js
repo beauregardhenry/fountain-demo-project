@@ -70,11 +70,14 @@
     var parts = md.split(/^## /m).slice(1);
     parts.forEach(function (p) {
       var nl = p.indexOf("\n");
+      if (nl < 0) nl = p.length;
       var name = p.slice(0, nl).trim().toLowerCase();
       sections[name] = p.slice(nl + 1).trim();
     });
     return { title: title, sections: sections };
   }
 
-  window.TourMarkdown = { render: render, parseChapter: parseChapter, inline: inline };
+  var api = { render: render, parseChapter: parseChapter, inline: inline };
+  if (typeof module !== "undefined" && module.exports) module.exports = api;
+  else window.TourMarkdown = api;
 })();

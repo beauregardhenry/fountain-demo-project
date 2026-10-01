@@ -8,6 +8,9 @@
   var MD = window.TourMarkdown;
   var $ = function (id) { return document.getElementById(id); };
 
+  // ?speed=4 plays recordings four times faster (for rehearsal and tests).
+  var SPEED = Math.max(0.1, Number(new URLSearchParams(location.search).get("speed")) || 1);
+
   var tour = null;
   var index = 0;
   var cache = {};
@@ -49,7 +52,7 @@
       var last = performance.now();
       this.timer = setInterval(function () {
         var now = performance.now();
-        self.clock += now - last;
+        self.clock += (now - last) * SPEED;
         last = now;
         while (self.next < self.events.length && self.events[self.next].at <= self.clock) {
           show(self.events[self.next++]);
