@@ -1,0 +1,30 @@
+{
+  "_note": "Hand-written to match the LogEvent and Block schemas in Fountain's sdk/contract/contract.json. Not a real capture.",
+  "data": [
+    { "id": 101, "ts": "2026-10-01T09:00:00.000Z", "kind": "stage", "stage": "provision", "state": "started" },
+    { "id": 102, "ts": "2026-10-01T09:00:04.000Z", "kind": "stage", "stage": "setup", "state": "started" },
+    { "id": 103, "ts": "2026-10-01T09:00:09.000Z", "kind": "output", "stream": "acp", "data": "{}", "turn_id": "6f1c0c1e-0000-4000-8000-000000000001",
+      "blocks": [ { "kind": "prompt", "body": "The signup form accepts emails without an @. Fix it and add a test." } ] },
+    { "id": 104, "ts": "2026-10-01T09:00:09.500Z", "kind": "stage", "stage": "turn", "state": "started", "turn_id": "6f1c0c1e-0000-4000-8000-000000000001" },
+    { "id": 105, "ts": "2026-10-01T09:00:12.000Z", "kind": "output", "stream": "acp", "data": "{}", "turn_id": "6f1c0c1e-0000-4000-8000-000000000001",
+      "blocks": [
+        { "kind": "thinking", "body": "I should look at the form validation first." },
+        { "kind": "tool_use", "name": "Bash", "summary": "grep -rn \"email\" src/forms", "tool_id": "t1" }
+      ] },
+    { "id": 106, "ts": "2026-10-01T09:00:13.000Z", "kind": "output", "stream": "acp", "data": "{}", "turn_id": "6f1c0c1e-0000-4000-8000-000000000001",
+      "blocks": [ { "kind": "tool_result", "tool_id": "t1", "body": "src/forms/signup.ts:14:  if (email.length > 0) {\nsrc/forms/signup.ts:15:    return true;\n" } ] },
+    { "id": 107, "ts": "2026-10-01T09:00:20.000Z", "kind": "output", "stream": "acp", "data": "{}", "turn_id": "6f1c0c1e-0000-4000-8000-000000000001",
+      "blocks": [
+        { "kind": "plan", "body": [ { "content": "Fix the check", "status": "completed" }, { "content": "Add a test", "status": "in_progress" } ] },
+        { "kind": "tool_use", "name": "Bash", "summary": "npm test", "tool_id": "t2" }
+      ] },
+    { "id": 108, "ts": "2026-10-01T09:00:31.000Z", "kind": "output", "stream": "acp", "data": "{}", "turn_id": "6f1c0c1e-0000-4000-8000-000000000001",
+      "blocks": [ { "kind": "tool_result", "tool_id": "t2", "summary": "12 passed, 0 failed" } ] },
+    { "id": 109, "ts": "2026-10-01T09:00:33.000Z", "kind": "output", "stream": "acp", "data": "{}", "turn_id": "6f1c0c1e-0000-4000-8000-000000000001",
+      "blocks": [ { "kind": "text", "body": "Fixed: the form now requires a valid email address, and a test covers it." }, { "kind": "result", "body": "end_turn" } ] },
+    { "id": 110, "ts": "2026-10-01T09:00:33.500Z", "kind": "stage", "stage": "turn", "state": "done", "turn_id": "6f1c0c1e-0000-4000-8000-000000000001" },
+    { "id": 111, "ts": "2026-10-01T12:05:00.000Z", "kind": "stage", "stage": "reattach", "state": "started" },
+    { "id": 112, "ts": "2026-10-01T12:05:01.000Z", "kind": "output", "stream": "stdout", "data": "plain runtime output with no blocks" },
+    { "id": 113, "ts": "2026-10-01T12:05:02.000Z", "kind": "stage", "stage": "turn/started" }
+  ]
+}

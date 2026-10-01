@@ -65,3 +65,5 @@ chapter 2 shows states (working, idle, parked) and no dollar amounts.
 | Q5 | Which hosted account and credits should the recordings (and any live mode) use, and who owns that budget? |
 | Q7 | Should this eventually live in `managoat/demos` alongside the other apps? |
 | Q8 | Can the demo account get the `connections` flag, in case chapter 3 needs a credential other than GitHub? |
+| Q9 | Who runs the recordings? Making them needs a Fountain API key and network access to Fountain. Either someone with access exports conversations (see [RECORDING.md](RECORDING.md)), or the Claude Code environment gets Fountain's host allowed and a key stored as `FOUNTAIN_API_KEY`. |
+| Q10 | Where should the sample repository the agent works on live? It must be public-safe and separate from this one. |
