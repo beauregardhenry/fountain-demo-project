@@ -5,11 +5,21 @@ const assert = require("node:assert/strict");
 const fs = require("fs");
 const os = require("os");
 const path = require("path");
-const { main, parseArgs, eventsFromSaved, fetchEvents } = require("../../scripts/record-conversation.js");
+const { main, parseArgs, eventsFromSaved, fetchEvents, readCredentials, resolveCredentials } = require("../../scripts/record-conversation.js");
 
 const SAMPLE = path.join(__dirname, "../fixtures/fountain-events.json");
 const tmpOut = () => path.join(fs.mkdtempSync(path.join(os.tmpdir(), "rec-")), "out.json");
-const quiet = { log: () => {} };
+// An empty home directory, so tests never read the real ~/.fountain/credentials.
+const emptyHome = () => fs.mkdtempSync(path.join(os.tmpdir(), "home-"));
+const quiet = { log: () => {}, home: emptyHome() };
+
+// A home directory holding a CLI credentials file with the given contents.
+function homeWithCredentials(ini) {
+  const home = emptyHome();
+  fs.mkdirSync(path.join(home, ".fountain"));
+  fs.writeFileSync(path.join(home, ".fountain", "credentials"), ini);
+  return home;
+}
 
 // A stand-in for fetch that serves the given pages in order and records each URL it was asked for.
 function fakeFetch(pages, status = 200) {
@@ -56,8 +66,25 @@ test("--out and exactly one source are required", async () => {
   await assert.rejects(main(["--out", tmpOut(), "--from-file", SAMPLE, "--conversation", "c"], {}, quiet), /exactly one/);
 });
 
-test("fetching needs FOUNTAIN_URL and FOUNTAIN_API_KEY", async () => {
-  await assert.rejects(main(["--conversation", "c", "--out", tmpOut()], {}, quiet), /Set FOUNTAIN_URL/);
+test("fetching without any Fountain credentials says how to get them", async () => {
+  await assert.rejects(main(["--conversation", "c", "--out", tmpOut()], {}, quiet), /run `fountain auth login`/);
+});
+
+test("credentials come from the CLI's saved profile", () => {
+  const home = homeWithCredentials('[default]\napi_key = "ftn_saved"\nbase_url = "https://managoat.com"\n\n[staging]\napi_key = "ftn_staging"\n');
+  assert.deepEqual(resolveCredentials({}, home), { apiKey: "ftn_saved", baseUrl: "https://managoat.com" });
+  assert.equal(resolveCredentials({ FOUNTAIN_PROFILE: "staging" }, home).apiKey, "ftn_staging");
+});
+
+test("environment variables win over the saved profile, as in the CLI", () => {
+  const home = homeWithCredentials('[default]\napi_key = "ftn_saved"\nbase_url = "https://managoat.com"\n');
+  const env = { FOUNTAIN_API_KEY: "ftn_env", FOUNTAIN_BASE_URL: "https://other.example" };
+  assert.deepEqual(resolveCredentials(env, home), { apiKey: "ftn_env", baseUrl: "https://other.example" });
+  assert.equal(resolveCredentials({ FOUNTAIN_URL: "https://old.example" }, home).baseUrl, "https://old.example");
+});
+
+test("a missing credentials file reads as no saved profile", () => {
+  assert.deepEqual(readCredentials(path.join(emptyHome(), "nope"), "default"), {});
 });
 
 test("a conversation with nothing showable is refused rather than written empty", async () => {
@@ -87,8 +114,8 @@ test("fetching through main writes the recording", async () => {
   const sample = JSON.parse(fs.readFileSync(SAMPLE, "utf8"));
   const out = tmpOut();
   const fetch = fakeFetch([{ data: sample.data, meta: { has_more: false, limit: 500 } }]);
-  const env = { FOUNTAIN_URL: "https://fountain.example", FOUNTAIN_API_KEY: "k" };
-  const rec = await main(["--conversation", "c", "--out", out], env, { log: () => {}, fetch });
+  const env = { FOUNTAIN_BASE_URL: "https://fountain.example", FOUNTAIN_API_KEY: "k" };
+  const rec = await main(["--conversation", "c", "--out", out], env, { log: () => {}, fetch, home: emptyHome() });
   assert.ok(rec.events.length > 5);
   assert.ok(fs.existsSync(out));
 });

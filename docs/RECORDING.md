@@ -21,12 +21,15 @@ replaces the placeholders.
 
 ### Fetching directly
 
-Needs network access to your Fountain instance and an API key in the environment:
+Needs network access to Fountain (`managoat.com` for the hosted platform) and the same
+credentials as the `fountain` CLI. After `fountain auth login`, nothing else is needed; the
+recorder reads the key and server the CLI saved. `FOUNTAIN_API_KEY` and `FOUNTAIN_BASE_URL` in the
+environment take priority, as they do for the CLI.
 
 ```bash
-FOUNTAIN_URL=https://your-instance FOUNTAIN_API_KEY=... \
-  node scripts/record-conversation.js --conversation <conversation-id> \
-    --out recordings/01-a-real-computer.json --title "One message, one computer"
+fountain auth login
+node scripts/record-conversation.js --conversation <conversation-id> \
+  --out recordings/01-a-real-computer.json --title "One message, one computer"
 ```
 
 ### Converting a saved export
@@ -36,7 +39,7 @@ events and hand over the file:
 
 ```bash
 curl -H "Authorization: Bearer $FOUNTAIN_API_KEY" \
-  "$FOUNTAIN_URL/api/conversations/<conversation-id>/events?order=asc&blocks=true&prompts=true&limit=500" \
+  "$FOUNTAIN_BASE_URL/api/conversations/<conversation-id>/events?order=asc&blocks=true&prompts=true&limit=500" \
   > events.json
 
 node scripts/record-conversation.js --from-file events.json \
