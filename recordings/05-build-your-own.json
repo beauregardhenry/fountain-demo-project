@@ -1,0 +1,12 @@
+{
+  "placeholder": true,
+  "title": "An app on one screen",
+  "events": [
+    { "at": 0,    "kind": "note",    "data": "A developer's app, start to finish" },
+    { "at": 800,  "kind": "command", "data": "1. Pick an agent and an environment" },
+    { "at": 1800, "kind": "command", "data": "2. Start a conversation with the user's request" },
+    { "at": 2800, "kind": "command", "data": "3. Stream what the agent does onto the page" },
+    { "at": 3800, "kind": "command", "data": "4. Send follow-ups to the same conversation" },
+    { "at": 5000, "kind": "message", "data": "No servers for agents, no machine management, no handling of keys: Fountain does that part." }
+  ]
+}

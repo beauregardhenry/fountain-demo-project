@@ -11,28 +11,50 @@ that in about 5–7 minutes, in five chapters.
 
 Every chapter has two layers:
 
-- **The story layer** (always visible): one plain-English idea, a live
+- **The story layer** (always visible): one plain-English idea, a
   demonstration of it, and a one-sentence takeaway. No jargon required.
-- **Under the hood** (expandable): the actual API call, the raw event stream,
-  and the architecture, for technical investors who want proof.
+- **Under the hood** (expandable): the API calls, the event stream and the
+  architecture, for technical investors who want proof.
 
-Every chapter also has a **replay mode** that plays back a recorded real run,
-so a pitch never depends on conference Wi-Fi, account credits or API changes.
+Every demonstration plays from a **recording** (replay mode), so a pitch never
+depends on conference Wi-Fi, account credits or API changes.
 
-## The five chapters
+## The chapters
 
 | # | Chapter | The idea, in one sentence |
 |---|---------|---------------------------|
-| 1 | A real computer | You send one message; an agent gets its own machine and you watch it work. |
-| 2 | The Parking Lot | When the agent is waiting, the machine sleeps and the meter stops; it wakes on the same disk. |
-| 3 | Sealed Secrets | The agent can use your keys without ever holding them, so a malicious instruction can't steal them. |
-| 4 | Overnight Engineer | Agents that remember: a week of real work, shown as a time-lapse. |
-| 5 | Build your own | A working agent app in roughly 40 lines: Fountain is a platform others build on. |
+| 1 | A real computer | This isn't a chatbot answering from memory. It's an agent with a computer. |
+| 2 | The Parking Lot | A conversation can wait for days without its computer running. |
+| 3 | Sealed Secrets | The agent never holds the key, so it can't leak it. |
+| 4 | Overnight Engineer | Agents that remember work like a colleague, not a search box. |
+| 5 | Build your own | Fountain is the layer other companies build agent products on. |
 
-See [docs/PLAN.md](docs/PLAN.md) for the two-week build plan and
-[docs/OPEN-QUESTIONS.md](docs/OPEN-QUESTIONS.md) for what engineering needs to
-confirm before building.
+## Run it
+
+It's plain HTML, CSS and JavaScript with nothing to install. It needs a local
+web server because it loads the chapter files (opening `index.html` directly
+won't work):
+
+```bash
+python3 -m http.server 8000
+```
+
+Then open <http://localhost:8000>. The arrow keys move between chapters, and
+Space plays the demo.
+
+## Edit the words
+
+All the copy lives in `content/chapters/`, one Markdown file per chapter. See
+[docs/EDITING-COPY.md](docs/EDITING-COPY.md). You don't need to touch any code.
 
 ## Status
 
-Planning. Nothing here is built yet.
+- Tour shell and first-draft copy: done.
+- Recordings: **placeholders**. Each is labeled on screen as illustrative, not
+  real Fountain output, until it's replaced with a recorded run.
+- The tour shows a **Draft** badge and a yellow "To verify before presenting"
+  box on each chapter until `"draft"` is set to `false` in
+  `content/tour.json`.
+
+See [docs/PLAN.md](docs/PLAN.md) for the build plan and
+[docs/OPEN-QUESTIONS.md](docs/OPEN-QUESTIONS.md) for what's been confirmed.

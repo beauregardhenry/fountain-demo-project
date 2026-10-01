@@ -1,0 +1,18 @@
+{
+  "placeholder": true,
+  "title": "A week, compressed",
+  "events": [
+    { "at": 0,    "kind": "note",    "data": "Monday" },
+    { "at": 500,  "kind": "status",  "state": "working", "data": "Scheduled check-in: picks up task 1" },
+    { "at": 1400, "kind": "message", "data": "Set up the project and wrote NOTES.md for future me." },
+    { "at": 2000, "kind": "status",  "state": "parked",  "data": "Parked overnight" },
+    { "at": 2800, "kind": "note",    "data": "Tuesday" },
+    { "at": 3200, "kind": "status",  "state": "working", "data": "Scheduled check-in: reads NOTES.md, continues" },
+    { "at": 4100, "kind": "message", "data": "Finished task 2. Left a note about a flaky test." },
+    { "at": 4700, "kind": "status",  "state": "parked",  "data": "Parked overnight" },
+    { "at": 5500, "kind": "note",    "data": "Wednesday through Friday" },
+    { "at": 6200, "kind": "status",  "state": "working", "data": "Fixes the flaky test it noted on Tuesday" },
+    { "at": 7300, "kind": "message", "data": "All five tasks done. Summary of the week is in NOTES.md." },
+    { "at": 8000, "kind": "status",  "state": "parked",  "data": "Parked" }
+  ]
+}

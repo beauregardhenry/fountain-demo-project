@@ -1,0 +1,77 @@
+{
+  "placeholder": true,
+  "title": "Work, park, resume",
+  "events": [
+    {
+      "at": 0,
+      "kind": "status",
+      "state": "working",
+      "data": "Turn 1: agent working"
+    },
+    {
+      "at": 1500,
+      "kind": "message",
+      "data": "Done. Added the export button."
+    },
+    {
+      "at": 2300,
+      "kind": "status",
+      "state": "idle",
+      "data": "Turn finished; machine still on, waiting for a reply"
+    },
+    {
+      "at": 3300,
+      "kind": "note",
+      "data": "An hour passes with no new message"
+    },
+    {
+      "at": 4300,
+      "kind": "status",
+      "state": "parked",
+      "data": "Machine parked: files kept, machine switched off"
+    },
+    {
+      "at": 5300,
+      "kind": "note",
+      "data": "The next day"
+    },
+    {
+      "at": 6300,
+      "kind": "prompt",
+      "data": "Nice. Can the export include dates?"
+    },
+    {
+      "at": 6900,
+      "kind": "status",
+      "state": "waking",
+      "data": "Same machine waking up"
+    },
+    {
+      "at": 7900,
+      "kind": "status",
+      "state": "working",
+      "data": "Turn 2: agent working"
+    },
+    {
+      "at": 8600,
+      "kind": "command",
+      "data": "git log --oneline -1"
+    },
+    {
+      "at": 9200,
+      "kind": "output",
+      "data": "Add export button   (yesterday's work, still here)"
+    },
+    {
+      "at": 10200,
+      "kind": "message",
+      "data": "Export now includes dates."
+    },
+    {
+      "at": 11000,
+      "kind": "status",
+      "state": "idle",
+      "data": "Turn finished; it will park again once the conversation goes quiet"
+    }
+  ]
+}

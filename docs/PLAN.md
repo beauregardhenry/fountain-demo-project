@@ -12,14 +12,16 @@ lets one artifact serve all three.
   apps in [managoat/demos](https://github.com/managoat/demos). The tour should
   prove that "an app which hires agents… is an ordinary web app with no
   privileged access."
-- **Pin one Fountain version.** The machine-ownership work (ADR 0058) landed
-  across v0.20–v0.21, and v0.18 retired the OpenAI-compatible endpoint, so the
-  surface is still moving.
+- **Pin one Fountain version: v0.21.0** (the latest release). The
+  machine-ownership work (ADR 0058) landed across v0.20–v0.21, and v0.18
+  retired the OpenAI-compatible endpoint, so the surface is still moving.
 - **Don't depend on live app previews.** Port listing/access is still an open
   proposal ([managoat/fountain#2542](https://github.com/managoat/fountain/issues/2542)).
 - **Replay mode is not optional.** Every chapter must run from a recording.
 - **No real secrets or customer data in this public repo.** Chapter 3 uses
   test-mode credentials only.
+- **Record from history, not the live stream.** Recordings come from
+  `GET /api/conversations/{id}/events` on a finished conversation (see Q6).
 
 ## Chapters in detail
 
@@ -31,20 +33,22 @@ lets one artifact serve all three.
 - Under the hood: the single API call and the SSE event stream.
 
 ### 2. The Parking Lot
-- Show: a board of many conversations; most are parked (asleep, holding
-  their files at no compute cost), a few are working and their meters tick.
-  Send a follow-up to a parked one and it resumes on the same disk.
-- Teach: "You pay while it works, not while it waits." That's the business
-  model.
-- Depends on: open question Q1 (cost data).
+- Show: a board of many conversations in three states: working, idle (machine
+  still on, waiting for a reply) and parked (switched off, files kept). Send a
+  follow-up to a parked one and it resumes on the same disk.
+- Teach: "A conversation can wait for days without its computer running."
+- Note: parking happens after an idle timeout, not the instant a turn ends,
+  and parked machines cost "almost nothing", not zero. No dollar figures
+  unless Q1 turns up a per-conversation number.
 
 ### 3. Sealed Secrets
-- Show: an agent with a test GitHub or Stripe credential reads a planted
-  malicious file telling it to send its keys elsewhere. The agent's environment
-  holds only a placeholder; the broker blocks the unknown destination; the
-  legitimate API call still succeeds.
+- Show: an agent with a test `GITHUB_TOKEN` (built-in binding, no feature
+  flag needed) reads a planted malicious file telling it to send its keys
+  elsewhere. The agent's environment holds only a placeholder; with network
+  policy `limited`, the broker refuses the unknown host with a 403; the
+  legitimate GitHub call still succeeds. Close on the conversation's egress
+  log as proof.
 - Teach: "The agent never holds the key, so it can't leak it."
-- Depends on: open question Q2 (broker rules via API).
 
 ### 4. Overnight Engineer
 - Show: a time-lapse of one agent working through issues in a sample repo
@@ -59,8 +63,10 @@ lets one artifact serve all three.
 ## Schedule
 
 **Week 1**
-- Day 1: create the sample repo and start the Overnight Engineer routine (ch. 4).
-- Get answers to the open questions from engineering.
+- Day 1: create the sample repo, add the Overnight Engineer as a teammate,
+  and give it a daily schedule (ch. 4). Not `one_off`: every run must land on
+  the same machine.
+- Get answers to the remaining open questions (Q1, Q5, Q7, Q8).
 - Build the tour shell, the two-layer chapter template, and replay mode.
 - Build chapters 1 and 2.
 

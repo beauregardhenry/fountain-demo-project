@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fountain Tour</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <span class="brand" id="tour-title">Fountain</span>
+    <nav class="progress" id="progress" aria-label="Chapters"></nav>
+    <span class="draft-flag" id="draft-flag" hidden>Draft</span>
+  </header>
+
+  <main class="chapter" id="chapter" aria-live="polite">
+    <section class="story">
+      <p class="eyebrow" id="eyebrow"></p>
+      <h1 id="chapter-title"></h1>
+      <div class="story-body" id="story"></div>
+      <p class="takeaway" id="takeaway"></p>
+      <details class="hood" id="hood">
+        <summary>Under the hood</summary>
+        <div id="hood-body"></div>
+      </details>
+    </section>
+
+    <section class="stage" id="stage" aria-label="Demonstration">
+      <div class="stage-head">
+        <span class="stage-title" id="stage-title"></span>
+        <span class="machine-state" id="machine-state" data-state="idle">idle</span>
+      </div>
+      <p class="placeholder-flag" id="placeholder-flag" hidden>
+        Placeholder recording: illustrative only, not real Fountain output
+      </p>
+      <ol class="log" id="log"></ol>
+      <div class="stage-controls">
+        <button type="button" id="play">Play</button>
+        <button type="button" id="restart">Restart</button>
+        <span class="mode">Replay mode</span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="nav">
+    <button type="button" id="prev">&larr; Back</button>
+    <span class="hint">Arrow keys move between chapters &middot; Space plays the demo</span>
+    <button type="button" id="next">Next &rarr;</button>
+  </footer>
+
+  <script src="markdown.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
